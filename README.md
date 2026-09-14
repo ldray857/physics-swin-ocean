@@ -5,16 +5,16 @@
 [![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/)
 [![PyTorch 2.0+](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
 [![GeoAI](https://img.shields.io/badge/Domain-GeoAI%20%26%20Oceanography-brightgreen.svg)]()
-[![ZJU Innovation Program](https://img.shields.io/badge/Program-2026%20ZJU%20Student%20Innovation%20Training%20Program-orange.svg)]()
+[![ZJU SRTP Program](https://img.shields.io/badge/Program-2026%20ZJU%20Student%20Innovation%20Training%20Program%20(SRTP)-orange.svg)]()
 
 [English](README.md) | [中文说明文档](README.zh.md)
 
 ---
 
 > **Project Title**: 融合物理约束的 Swin Transformer 海洋三维温盐重建模型构建 (Physics-Constrained Swin Transformer for Ocean 3-D Temperature and Salinity Reconstruction)  
-> **Affiliation / Program**: 2026年浙江大学大学生创新训练项目 (2026 Zhejiang University Student Innovation Training Program)  
-> **Principal Investigator**: Lei Di (Zhejiang University, School of Earth Sciences, GIS Major)  
-> **Advisor**: Dr. Sensen Wu (School of Earth Sciences, Zhejiang University)  
+> **Affiliation / Program**: 2026年浙江大学大学生创新训练项目（也叫 SRTP 项目） / 2026 Zhejiang University Student Innovation Training Program (SRTP)  
+> **Student Contributors**: Primary work conducted by **Lei Di (Project Lead / 立项人)**, **Hangyu Li**, and **Xubin Huang**  
+> **Advisors**: **Prof. Zhenhong Du (Primary Advisor / 主指导教师)**, **Dr. Sensen Wu**, **Dr. Yijun Chen**  
 
 ---
 
@@ -408,12 +408,12 @@ If you find this codebase or methodology helpful in your research, please cite:
 
 ---
 
-## 8. Author & Acknowledgements
+## 8. Team & Acknowledgements
 
 *   **Project Title**: 融合物理约束的 Swin Transformer 海洋三维温盐重建模型构建 (Physics-Constrained Swin Transformer for Ocean 3-D Temperature and Salinity Reconstruction)
-*   **Support / Program**: 2026年浙江大学大学生创新训练项目 (2026 Zhejiang University Student Innovation Training Program)
-*   **Principal Investigator**: Lei Di (Zhejiang University, School of Earth Sciences, GIS Major)
-*   **Advisor**: Dr. Sensen Wu (School of Earth Sciences, Zhejiang University)
+*   **Support / Program**: 2026年浙江大学大学生创新训练项目（也叫 SRTP 项目） / 2026 Zhejiang University Student Innovation Training Program (SRTP)
+*   **Student Team**: Primary work completed by **Lei Di (Project Lead / 立项人)**, **Hangyu Li**, and **Xubin Huang**
+*   **Advisors**: **Prof. Zhenhong Du (Primary Advisor / 主指导教师)**, **Dr. Sensen Wu**, **Dr. Yijun Chen** (School of Earth Sciences, Zhejiang University)
 
 ---
 

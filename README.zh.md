@@ -4,16 +4,16 @@
 [![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/)
 [![PyTorch 2.0+](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
 [![GeoAI](https://img.shields.io/badge/Domain-GeoAI%20%26%20海洋人工智能-brightgreen.svg)]()
-[![大学生创新训练项目](https://img.shields.io/badge/项目-2026年浙江大学大学生创新训练项目-orange.svg)]()
+[![大学生创新训练项目](https://img.shields.io/badge/项目-2026年浙江大学大学生创新训练项目(SRTP)-orange.svg)]()
 
 [English](README.md) | [中文说明文档](README.zh.md)
 
 ---
 
 > **项目名称**：融合物理约束的 Swin Transformer 海洋三维温盐重建模型构建  
-> **依托项目**：2026年浙江大学大学生创新训练项目  
-> **项目负责人**：雷堤（浙江大学地球科学学院 地理信息科学专业 2024级）  
-> **指导教师**：吴森森 研究员（浙江大学地球科学学院）  
+> **依托项目**：2026年浙江大学大学生创新训练项目（也叫 SRTP 项目）  
+> **主要成员**：主要工作由 **雷堤（立项人）**、**李航宇**、**黄旭彬** 三位同学完成  
+> **指导教师**：**杜震洪**（主指导教师）、**吴森森**、**陈奕君**  
 
 ---
 
@@ -409,9 +409,9 @@ python visualize.py --data_dir data/2017_2020 --checkpoint checkpoints/swin_ocea
 ```
 
 *   **项目名称**：融合物理约束的 Swin Transformer 海洋三维温盐重建模型构建
-*   **依托项目**：2026年浙江大学大学生创新训练项目
-*   **项目负责人**：雷堤（浙江大学地球科学学院 地理信息科学专业 2024级）
-*   **指导教师**：吴森森 研究员（浙江大学地球科学学院）
+*   **依托项目**：2026年浙江大学大学生创新训练项目（也叫 SRTP 项目）
+*   **主要完成人**：主要工作由 **雷堤（立项人）**、**李航宇**、**黄旭彬** 三位同学完成
+*   **指导教师**：**杜震洪**（主指导教师）、**吴森森**、**陈奕君**
 
 ---
 

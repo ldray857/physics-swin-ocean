@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 setup(
     name="pinn_ocean",
     version="1.0.0",
-    author="Lei Di",
+    author="Lei Di, Hangyu Li, Xubin Huang",
     author_email="3066443513@qq.com",
     description="融合物理约束的 Swin Transformer 海洋三维温盐重建模型构建 (Physics-Constrained Swin Transformer for Ocean 3-D Thermohaline Reconstruction)",
     long_description=open("README.md", encoding="utf-8").read(),

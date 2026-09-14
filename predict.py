@@ -259,7 +259,7 @@ def predict_and_export():
         attrs={
             "title": "Pinn-Ocean 3-D Pacific Ocean Thermohaline Reconstruction",
             "institution": "Zhejiang University, School of Earth Sciences",
-            "program": "Zeng Xianzi Top-notch Innovation Talent Cultivation Program",
+            "program": "2026 Zhejiang University Student Innovation Training Program (SRTP)",
             "model": "Swin-Ocean-PINN (Shifted Window Self-Attention & Continuous Depth PINN)",
             "source": "Copernicus Marine Service (CMEMS) Satellite Observations & GLORYS12V1",
             "conventions": "CF-1.8"
@@ -339,7 +339,7 @@ def predict_and_export():
             attrs={
                 "title": "Pinn-Ocean 3-D Pacific Regular Equal-Interval Thermohaline Reconstruction",
                 "institution": "Zhejiang University, School of Earth Sciences",
-                "program": "Zeng Xianzi Top-notch Innovation Talent Cultivation Program",
+                "program": "2026 Zhejiang University Student Innovation Training Program (SRTP)",
                 "model": "Swin-Ocean-PINN (Continuous Depth PINN Representation)",
                 "description": f"Strictly equal-interval vertical coordinate (0-1000m, step={args.regular_step}m) optimized for ArcGIS Pro Voxel Layer with zero distortion.",
                 "conventions": "CF-1.8"

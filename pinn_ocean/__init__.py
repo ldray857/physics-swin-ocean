@@ -5,4 +5,4 @@ for 3-D Ocean Thermohaline Reconstruction
 """
 
 __version__ = "1.0.0"
-__author__ = "Lei Di (Zhejiang University)"
+__author__ = "Lei Di, Hangyu Li, Xubin Huang (Zhejiang University)"
