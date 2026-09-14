@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Full-Depth Prediction vs Truth Scatter Density (Hexbin) Module for Pinn-Ocean
+Full-Depth Prediction vs Truth Scatter Density (Hexbin) Module for Phy-Ocean
 Plots hexbin density distributions for temperature and salinity with R^2 and RMSE annotations.
 """
 

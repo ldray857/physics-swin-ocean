@@ -43,7 +43,7 @@ wheels/
 data/*
 !data/.gitkeep
 /datasets/
-!pinn_ocean/datasets/
+!phy_ocean/datasets/
 
 # Logs and outputs
 runs/

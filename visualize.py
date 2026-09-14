@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Scientific Visualization CLI Pipeline for Pinn-Ocean (Swin-Ocean-PINN)
-Orchestrates inference and calls modular plotting functions from pinn_ocean.visualization:
+Scientific Visualization CLI Pipeline for Phy-Ocean (Swin-Ocean-PINN)
+Orchestrates inference and calls modular plotting functions from phy_ocean.visualization:
 1. Fig 1: Representative Station Vertical Profiles (0-1000m T & S)
 2. Fig 2: Thermohaline Physical Consistency (T-S Diagram)
 3. Fig 3: Full-Depth Prediction vs Truth Scatter Density (Hexbin with R^2)
@@ -17,11 +17,11 @@ import matplotlib.pyplot as plt
 from torch.utils.data import DataLoader
 
 from configs.default_config import ModelConfig
-from pinn_ocean.models.swin_ocean_pinn import SwinOceanPINN
-from pinn_ocean.datasets.ocean_dataset import OceanContinuousDataset
-from pinn_ocean.utils.metrics import calc_mld
-from pinn_ocean.utils import get_result_dirs
-from pinn_ocean.visualization import (
+from phy_ocean.models.swin_ocean_pinn import SwinOceanPINN
+from phy_ocean.datasets.ocean_dataset import OceanContinuousDataset
+from phy_ocean.utils.metrics import calc_mld
+from phy_ocean.utils import get_result_dirs
+from phy_ocean.visualization import (
     plot_vertical_profiles,
     plot_ts_diagram,
     plot_scatter_density,
@@ -35,7 +35,7 @@ plt.rcParams['figure.dpi'] = 300
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Generate Scientific Evaluation Figures for Pinn-Ocean.")
+    parser = argparse.ArgumentParser(description="Generate Scientific Evaluation Figures for Phy-Ocean.")
     parser.add_argument(
         "--data_dir", type=str, default="data",
         help="Directory containing downloaded NetCDF input datasets"
@@ -116,7 +116,7 @@ def run_visualization():
         ckpt_path = tag_ckpt if os.path.exists(tag_ckpt) else "checkpoints/swin_ocean_pinn_best.pth"
 
     print("=" * 70)
-    print("      Pinn-Ocean Scientific Visualization & Physical Validation    ")
+    print("      Phy-Ocean Scientific Visualization & Physical Validation    ")
     print("=" * 70)
     print(f" Device     : {device}")
     print(f" Data Dir   : {os.path.abspath(args.data_dir)}")

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Physics Loss Module for Pinn-Ocean
+Physics Loss Module for Phy-Ocean
 Implements multi-objective ocean physics constraints:
 1. Active Dynamic Height (SLA) Physical Coupling (TEOS-10 steric integration)
 2. Sea Surface Dirichlet Boundary Condition Anchor (SST / SSS)

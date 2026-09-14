@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Self-Contained Verification & Pipeline Test Suite for Pinn-Ocean
+Self-Contained Verification & Pipeline Test Suite for Phy-Ocean
 Validates the complete deep learning & physics pipeline without external NetCDF dependencies:
 1. Hardware / CUDA environment check
 2. TEOS-10 differentiable seawater equation of state & Autograd derivative
@@ -19,16 +19,16 @@ import torch.nn as nn
 import torch.optim as optim
 
 from configs.default_config import ModelConfig, PhysicsConfig
-from pinn_ocean.models.swin_ocean_pinn import SwinOceanPINN
-from pinn_ocean.losses.physics_loss import OceanPhysicsLoss
-from pinn_ocean.losses.adaptive_loss import AdaptiveMultiObjectiveLoss
-from pinn_ocean.utils.teos10 import approx_seawater_density
-from pinn_ocean.utils.metrics import calc_rmse, calc_r2, calc_mld
+from phy_ocean.models.swin_ocean_pinn import SwinOceanPINN
+from phy_ocean.losses.physics_loss import OceanPhysicsLoss
+from phy_ocean.losses.adaptive_loss import AdaptiveMultiObjectiveLoss
+from phy_ocean.utils.teos10 import approx_seawater_density
+from phy_ocean.utils.metrics import calc_rmse, calc_r2, calc_mld
 
 
 def run_unit_tests():
     print("==================================================================")
-    print("           Pinn-Ocean Unit Testing & Pipeline Verification        ")
+    print("            Phy-Ocean Unit Testing & Pipeline Verification        ")
     print("==================================================================")
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -122,7 +122,7 @@ def run_unit_tests():
     optimizer.step()
     print("      --> Pointwise backward pass and parameter update executed successfully.")
     print("\n==================================================================")
-    print(" [PASSED] All Pinn-Ocean core components verified successfully!   ")
+    print(" [PASSED] All Phy-Ocean core components verified successfully!    ")
     print("==================================================================")
 
 

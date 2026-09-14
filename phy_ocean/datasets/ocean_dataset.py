@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Dataset module for Pinn-Ocean
+Dataset module for Phy-Ocean
 Loads multi-source satellite observations and 3-D ocean reanalysis data from NetCDF files.
 """
 

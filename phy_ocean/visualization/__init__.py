@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Visualization Subpackage for Pinn-Ocean
+Visualization Subpackage for Phy-Ocean
 Modular high-resolution scientific plotting routines for oceanographic evaluations.
 """
 

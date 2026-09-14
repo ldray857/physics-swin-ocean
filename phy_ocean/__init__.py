@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Pinn-Ocean: A Physics-Informed Neural Network with Shifted Window Attention
+Phy-Ocean: A Physics-Informed Neural Network with Shifted Window Attention
 for 3-D Ocean Thermohaline Reconstruction
 """
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Evaluation and Metrics Assessment Script for Pinn-Ocean (Swin-Ocean-PINN)
+Evaluation and Metrics Assessment Script for Phy-Ocean (Swin-Ocean-PINN)
 Computes layer-by-layer RMSE, MAE, R^2 score and Mixed Layer Depth (MLD) error.
 """
 
@@ -11,10 +11,10 @@ import numpy as np
 from torch.utils.data import DataLoader
 
 from configs.default_config import ModelConfig, DataConfig
-from pinn_ocean.models.swin_ocean_pinn import SwinOceanPINN
-from pinn_ocean.datasets.ocean_dataset import OceanContinuousDataset
-from pinn_ocean.utils.metrics import calc_rmse, calc_mae, calc_r2, calc_mld
-from pinn_ocean.utils import get_result_dirs
+from phy_ocean.models.swin_ocean_pinn import SwinOceanPINN
+from phy_ocean.datasets.ocean_dataset import OceanContinuousDataset
+from phy_ocean.utils.metrics import calc_rmse, calc_mae, calc_r2, calc_mld
+from phy_ocean.utils import get_result_dirs
 
 
 def parse_args():

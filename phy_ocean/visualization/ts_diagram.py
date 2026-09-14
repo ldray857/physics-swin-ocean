@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Temperature-Salinity (T-S) Physical Consistency Diagram Module for Pinn-Ocean
+Temperature-Salinity (T-S) Physical Consistency Diagram Module for Phy-Ocean
 Validates water mass distributions and thermodynamic stability (no density inversion).
 """
 
@@ -40,7 +40,7 @@ def plot_ts_diagram(
         c='#e67e22', s=16, alpha=0.75, label='PINN 物理重构', edgecolors='none'
     )
 
-    ax.set_title("西北太平洋温盐关系 (T-S Diagram) 物理一致性检验", fontsize=13, fontweight='bold')
+    ax.set_title("温带太平洋区域温盐关系 (T-S Diagram) 物理一致性检验", fontsize=13, fontweight='bold')
     ax.set_xlabel("盐度 Salinity (PSU)", fontsize=11)
     ax.set_ylabel("位温 Potential Temperature (°C)", fontsize=11)
     ax.grid(True, linestyle=":", alpha=0.6)

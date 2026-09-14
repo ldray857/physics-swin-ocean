@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Pinn-Ocean Quick Verification Test Entry Point
+Phy-Ocean Quick Verification Test Entry Point
 Redirects to the modular test suite in tests/test_pipeline.py.
 """
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Adaptive Multi-Objective Loss Module for Pinn-Ocean
+Adaptive Multi-Objective Loss Module for Phy-Ocean
 Balances data-driven MSE loss and physics-informed constraint loss
 using learnable homoscedastic uncertainty / dual optimization weights.
 """

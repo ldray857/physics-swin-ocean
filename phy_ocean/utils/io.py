@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-I/O and Result Directory Organization Module for Pinn-Ocean
+I/O and Result Directory Organization Module for Phy-Ocean
 Standardizes directory layout:
 <result_dir>/<year_tag>/
     ├── pic/          (Visualization figures)

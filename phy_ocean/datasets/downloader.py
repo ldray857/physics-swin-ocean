@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Downloader module for Pinn-Ocean
+Downloader module for Phy-Ocean
 Encapsulates CMEMS data subsetting API calls for programmatic usage.
 """
 
@@ -24,7 +24,7 @@ def download_pacific_dataset(
     dry_run: bool = False
 ) -> bool:
     """
-    Subsets and downloads a specific CMEMS NetCDF dataset for the Open Pacific region.
+    Subsets and downloads a specific CMEMS NetCDF dataset for the Temperate Pacific region (温带太平洋区域).
     
     Args:
         dataset_id: CMEMS dataset identifier

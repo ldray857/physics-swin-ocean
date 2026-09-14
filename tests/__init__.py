@@ -1,4 +1,4 @@
 # -*- coding: utf-8 -*-
 """
-Unit and Integration Tests for Pinn-Ocean
+Unit and Integration Tests for Phy-Ocean
 """

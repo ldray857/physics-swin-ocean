@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Automated Data Acquisition Script for Pinn-Ocean (Swin-Ocean-PINN)
+Automated Data Acquisition Script for Phy-Ocean (Swin-Ocean-PINN)
 Fetches satellite surface observations and 3-D ocean reanalysis labels from CMEMS
 (Copernicus Marine Environment Monitoring Service).
 
-Region: Open Pacific Ocean (Default: Kuroshio Extension Deep Basin, 145°E-165°E, 30°N-40°N)
+Region: 温带太平洋区域 (Temperate Pacific Region: 145°E-165°E, 30°N-40°N)
 No land, no islands, 100% valid water grid points.
 Time Span: 2013-01-01 to 2021-12-31 (108 months)
 """
@@ -85,7 +85,7 @@ def resolve_output_filename(prefix: str, start_time: str, end_time: str) -> str:
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Download Open Pacific multi-source ocean observations & 3-D reanalysis from CMEMS."
+        description="下载温带太平洋区域（Temperate Pacific Region）多源海洋遥感观测与三维再分析数据 (CMEMS)."
     )
     parser.add_argument("--output_dir", type=str, default="data",
                         help="Directory to save downloaded NetCDF files (default: data)")
@@ -194,9 +194,9 @@ def main():
     args = parse_args()
 
     print("=" * 70)
-    print("      Pinn-Ocean Open Pacific Data Collection Tool (CMEMS)       ")
+    print("      Phy-Ocean 温带太平洋区域数据获取工具 (CMEMS)       ")
     print("=" * 70)
-    print(f" Target Region : {args.min_lon}°E - {args.max_lon}°E, {args.min_lat}°N - {args.max_lat}°N (Pure Open Ocean)")
+    print(f" Target Region : {args.min_lon}°E - {args.max_lon}°E, {args.min_lat}°N - {args.max_lat}°N (温带太平洋区域)")
     print(f" Temporal Range: {args.start_time} to {args.end_time}")
     print(f" Depth Range   : {args.min_depth}m - {args.max_depth}m (Subsurface 3-D)")
     print(f" Base Output   : {os.path.abspath(args.output_dir)}")

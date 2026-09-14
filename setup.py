@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="pinn_ocean",
+    name="phy_ocean",
     version="1.0.0",
     author="Lei Di, Hangyu Li, Xubin Huang",
     author_email="3066443513@qq.com",

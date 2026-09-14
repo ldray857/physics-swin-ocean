@@ -1,5 +1,5 @@
 # 融合物理约束的 Swin Transformer 海洋三维温盐重建模型构建
-## Pinn-Ocean: Physics-Constrained Swin Transformer for 3-D Ocean Thermohaline Reconstruction
+## Phy-Ocean: Physics-Constrained Swin Transformer for 3-D Ocean Thermohaline Reconstruction
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/)
@@ -17,7 +17,7 @@ Reconstructing three-dimensional (3-D) ocean temperature and salinity (thermohal
 
 Traditional deep learning approaches rely on purely data-driven black-box architectures (e.g., 2-D CNNs), which often suffer from limited receptive fields, non-physical predictions (such as density inversions and abnormal thermal inversions), and finite difference truncation errors across discrete layers.
 
-Pinn-Ocean addresses these challenges by coupling a Swin Transformer spatial backbone with a Physics-Informed Neural Network (PINN) continuous coordinate decoder. By integrating the TEOS-10 equation of state directly into the loss function via PyTorch autograd, Pinn-Ocean reconstructs continuous 3-D thermohaline fields constrained by hydrostatic and thermodynamic principles.
+Phy-Ocean addresses these challenges by coupling a Swin Transformer spatial backbone with a Physics-Informed Neural Network (PINN) continuous coordinate decoder. By integrating the TEOS-10 equation of state directly into the loss function via PyTorch autograd, Phy-Ocean reconstructs continuous 3-D thermohaline fields constrained by hydrostatic and thermodynamic principles.
 
 ---
 
@@ -26,7 +26,7 @@ Pinn-Ocean addresses these challenges by coupling a Swin Transformer spatial bac
 The dataset is sourced from the Copernicus Marine Service (CMEMS) and the International Argo Program.
 
 ### 2.1 Study Area and Time Horizon
-- Spatial range: Northwest Pacific (145°E–165°E, 30°N–40°N), depth 0–1000m. Open ocean without land cover.
+- Spatial range: Temperate Pacific region (145°E–165°E, 30°N–40°N), depth 0–1000m. Open ocean without land cover.
 - Time range: January 2013 to December 2021 (monthly mean, 108 months).
   - Training set: 2013–2018 (72 months)
   - Validation set: 2019–2020 (24 months)
@@ -232,11 +232,11 @@ where $\omega_1, \omega_2$ are learnable homoscedastic log-variance dual paramet
 ## 4. Repository Structure
 
 ```text
-Pinn-Ocean/
+physics-swin-ocean/
 ├── configs/
 │   ├── __init__.py
 │   └── default_config.py      # Experiment, model, and physical loss hyperparameters
-├── pinn_ocean/                # Core Python Package
+├── phy_ocean/                 # Core Python Package (Phy-Ocean)
 │   ├── __init__.py
 │   ├── models/                # Deep learning architectures
 │   │   ├── __init__.py
@@ -266,12 +266,10 @@ Pinn-Ocean/
 ├── checkpoints/               # Trained model checkpoint weights (.pth) (tracked via .gitkeep)
 │   └── .gitkeep
 ├── data/                      # Local NetCDF observation and reanalysis data (tracked via .gitkeep)
-│   ├── .gitkeep
-│   ├── 2020/                  # 2020 5-parameter annual benchmark dataset
-│   └── 2019_2020/             # 2019–2020 two-year full seasonal cycle dataset (24 months)
+│   └── .gitkeep
 ├── results/                   # High-resolution (300 DPI) figures and plots (tracked via .gitkeep)
 │   └── .gitkeep
-├── download_data.py           # Automated data collection tool for Open Pacific CMEMS datasets
+├── download_data.py           # Automated data collection tool for Temperate Pacific CMEMS datasets
 ├── train.py                   # Model training entry point
 ├── evaluate.py                # Model evaluation and layer-wise validation script
 ├── predict.py                 # Full 3-D volumetric inference & CF-compliant NetCDF exporter
@@ -290,14 +288,14 @@ Pinn-Ocean/
 
 ### (a) Clone Repository
 ```bash
-git clone https://github.com/ldray857/Pinn-Ocean.git
-cd Pinn-Ocean
+git clone https://github.com/ldray857/physics-swin-ocean.git
+cd physics-swin-ocean
 ```
 
 ### (b) Create and Activate Conda Environment
 ```bash
-conda create -n pinn_ocean python=3.10 -y
-conda activate pinn_ocean
+conda create -n phy_ocean python=3.10 -y
+conda activate phy_ocean
 ```
 
 ### (c) Install Dependencies
@@ -311,7 +309,7 @@ pip install -r requirements.txt
 
 ### 6.1 Data Acquisition
 
-The project provides standard automated scripts to subset and download multi-source satellite observations and 3-D reanalysis for the Northwest Pacific open ocean (145°E–165°E, 30°N–40°N, depth 0.49–1000 m), with support for **automatic yearly subdirectories** (e.g. `data/2017`, `data/2018`, `data/2019`, `data/2020` via `--by_year`, enabled by default):
+The project provides standard automated scripts to subset and download multi-source satellite observations and 3-D reanalysis for the Temperate Pacific open ocean (145°E–165°E, 30°N–40°N, depth 0.49–1000 m), with support for **automatic yearly subdirectories** (e.g. `data/2017`, `data/2018`, `data/2019`, `data/2020` via `--by_year`, enabled by default):
 
 ```bash
 # Preview subsetting parameters and yearly breakdown without downloading

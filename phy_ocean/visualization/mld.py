@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Mixed Layer Depth (MLD) Validation Plotting Module for Pinn-Ocean
+Mixed Layer Depth (MLD) Validation Plotting Module for Phy-Ocean
 Validates upper-ocean stratification interface against ground truth.
 """
 

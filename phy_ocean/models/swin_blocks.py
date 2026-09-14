@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Swin Transformer Building Blocks for Pinn-Ocean
+Swin Transformer Building Blocks for Phy-Ocean
 Adapted from Swin-Unet (Hu Cao et al.) and Microsoft Swin Transformer.
 Features window-based multi-head self-attention (W-MSA / SW-MSA),
 patch merging, patch expansion, and multi-channel projection.

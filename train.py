@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Main Training Pipeline for Pinn-Ocean (Swin-Ocean-PINN)
+Main Training Pipeline for Phy-Ocean (Swin-Ocean-PINN)
 Executes physics-informed neural network training on ocean thermohaline fields.
 """
 
@@ -12,12 +12,12 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 
 from configs.default_config import ModelConfig, PhysicsConfig, TrainConfig, DataConfig
-from pinn_ocean.models.swin_ocean_pinn import SwinOceanPINN
-from pinn_ocean.losses.physics_loss import OceanPhysicsLoss
-from pinn_ocean.losses.adaptive_loss import AdaptiveMultiObjectiveLoss
-from pinn_ocean.datasets.ocean_dataset import OceanContinuousDataset
-from pinn_ocean.utils.metrics import calc_rmse, calc_r2
-from pinn_ocean.utils import get_result_dirs
+from phy_ocean.models.swin_ocean_pinn import SwinOceanPINN
+from phy_ocean.losses.physics_loss import OceanPhysicsLoss
+from phy_ocean.losses.adaptive_loss import AdaptiveMultiObjectiveLoss
+from phy_ocean.datasets.ocean_dataset import OceanContinuousDataset
+from phy_ocean.utils.metrics import calc_rmse, calc_r2
+from phy_ocean.utils import get_result_dirs
 
 
 def parse_args():

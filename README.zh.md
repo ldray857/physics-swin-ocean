@@ -1,4 +1,4 @@
-# 融合物理约束的 Swin Transformer 海洋三维温盐重建模型构建 (Pinn-Ocean)
+# 融合物理约束的 Swin Transformer 海洋三维温盐重建模型构建 (Phy-Ocean)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/)
@@ -19,7 +19,7 @@
 2. 违背物理法则：纯数据驱动的“黑盒”模型在观测盲区易出现违背热力学常识的现象，如深层海水密度小于表层的反常密度倒置与异常逆温；
 3. 有限差分离散误差：逐层网格计算使得垂直导数截断误差随深度累积，深层反演精度急剧下降。
 
-针对上述瓶颈，Pinn-Ocean 耦合 Swin Transformer 空间自注意力与物理信息神经网络（PINN）连续坐标解码，通过引入 PyTorch autograd 自动微分机制，将 TEOS-10 海水状态方程与海水层结稳定条件作为物理损失约束，提升三维反演精度与物理一致性。
+针对上述瓶颈，Phy-Ocean 耦合 Swin Transformer 空间自注意力与物理信息神经网络（PINN）连续坐标解码，通过引入 PyTorch autograd 自动微分机制，将 TEOS-10 海水状态方程与海水层结稳定条件作为物理损失约束，提升三维反演精度与物理一致性。
 
 ---
 
@@ -28,7 +28,7 @@
 数据主要来自欧盟哥白尼海洋服务（CMEMS）与国际 Argo 计划。
 
 ### 2.1 区域与时间
-- 空间范围：西北太平洋（145°E–165°E, 30°N–40°N），深度 0–1000m。为开阔大洋，无陆地掩码。
+- 空间范围：温带太平洋区域（145°E–165°E, 30°N–40°N），深度 0–1000m。为开阔大洋，无陆地掩码。
 - 时间范围：2013 年 1 月至 2021 年 12 月（月平均，共 108 个月）。
   - 训练集：2013–2018 年（72 个月）
   - 验证集：2019–2020 年（24 个月）
@@ -234,11 +234,11 @@ $$
 ## 四、 工程目录结构
 
 ```text
-Pinn-Ocean/
+physics-swin-ocean/
 ├── configs/
 │   ├── __init__.py
 │   └── default_config.py      # 模型维度、物理损失超参数及路径配置文件
-├── pinn_ocean/                # 核心算法与模型包
+├── phy_ocean/                 # 核心算法与模型包 (Phy-Ocean)
 │   ├── __init__.py
 │   ├── models/                # 神经网络架构
 │   │   ├── __init__.py
@@ -268,12 +268,10 @@ Pinn-Ocean/
 ├── checkpoints/               # 训练产出的最优模型权重 (.pth) (通过 .gitkeep 追踪目录)
 │   └── .gitkeep
 ├── data/                      # 真实海洋卫星观测与 GLORYS 3D 再分析数据 (NetCDF) (通过 .gitkeep 追踪)
-│   ├── .gitkeep
-│   ├── 2020/                  # 2020 单年 5 核心要素基准数据集
-│   └── 2019_2020/             # 2019–2020 两年全四季闭环数据集 (24 个月)
+│   └── .gitkeep
 ├── results/                   # 自动输出的 300 DPI 高清科研图件与报表 (通过 .gitkeep 追踪)
 │   └── .gitkeep
-├── download_data.py           # CMEMS 开阔太平洋多源遥感与 3D 再分析数据自动化下载脚本
+├── download_data.py           # CMEMS 温带太平洋区域多源遥感与 3D 再分析数据自动化下载脚本
 ├── train.py                   # 完整模型训练主入口
 ├── evaluate.py                # 检查点评估与分层物理指标验证脚本
 ├── predict.py                 # 全域三维立体反演与标准 NetCDF4 数据资产导出脚本
@@ -292,14 +290,14 @@ Pinn-Ocean/
 
 ### (a) 克隆仓库
 ```bash
-git clone https://github.com/ldray857/Pinn-Ocean.git
-cd Pinn-Ocean
+git clone https://github.com/ldray857/physics-swin-ocean.git
+cd physics-swin-ocean
 ```
 
 ### (b) 创建并激活 Conda 虚拟环境
 ```bash
-conda create -n pinn_ocean python=3.10 -y
-conda activate pinn_ocean
+conda create -n phy_ocean python=3.10 -y
+conda activate phy_ocean
 ```
 
 ### (c) 安装依赖库
@@ -313,7 +311,7 @@ pip install -r requirements.txt
 
 ### 6.1 数据获取
 
-本项目提供标准脚本直接从 CMEMS 抓取西北太平洋纯深海大洋无陆地区域（145°E–165°E, 30°N–40°N，水深 0.49～1000 m）的月度融合数据，支持**按年份自动分目录存储**（例如 `data/2017`、`data/2018`、`data/2019`、`data/2020`，通过 `--by_year` 参数控制，默认开启）：
+本项目提供标准脚本直接从 CMEMS 抓取温带太平洋区域纯深海大洋无陆地区域（145°E–165°E, 30°N–40°N，水深 0.49～1000 m）的月度融合数据，支持**按年份自动分目录存储**（例如 `data/2017`、`data/2018`、`data/2019`、`data/2020`，通过 `--by_year` 参数控制，默认开启）：
 
 ```bash
 # 预览下载计划与网格参数（无需网络请求，自动展示分年计划）

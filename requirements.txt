@@ -1,5 +1,5 @@
 # ==============================================================================
-# Pinn-Ocean (Swin-Ocean-PINN) Dependencies & Environment Specifications
+# Phy-Ocean (Swin-Ocean-PINN) Dependencies & Environment Specifications
 # ==============================================================================
 
 # --- Deep Learning & Autograd Engine ---

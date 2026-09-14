@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Vertical Profile Comparison Plotting Module for Pinn-Ocean
+Vertical Profile Comparison Plotting Module for Phy-Ocean
 Plots representative station temperature and salinity profiles (0-1000m).
 """
 

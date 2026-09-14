@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Configuration file for Pinn-Ocean (Swin-Ocean-PINN)
-Defines model hyperparameters, physics loss weights, training configs, and Open Pacific dataset settings.
+Configuration file for Phy-Ocean (Swin-Ocean-PINN)
+Defines model hyperparameters, physics loss weights, training configs, and Temperate Pacific dataset settings.
 """
 
 from dataclasses import dataclass, field
@@ -65,7 +65,7 @@ class DataConfig:
     sss_path: str = "data/pacific_sss.nc"
     wind_path: str = "data/pacific_wind.nc"
     
-    # Open Pacific bounding box (100% pure open ocean, zero land points)
+    # Temperate Pacific bounding box (温带太平洋区域: 100% pure open ocean, zero land points)
     min_lon: float = 145.0
     max_lon: float = 165.0
     min_lat: float = 30.0

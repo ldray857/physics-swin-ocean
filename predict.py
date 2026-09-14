@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Full 3-D Ocean Thermohaline Reconstruction & NetCDF Export Script
-Pinn-Ocean (Swin-Ocean-PINN)
+Phy-Ocean (Swin-Ocean-PINN)
 
 Performs full-grid 3D subsurface temperature and salinity reconstruction
 and exports results as standard CF-compliant NetCDF4 files for GIS/oceanographic analysis.
@@ -16,9 +16,9 @@ import xarray as xr
 from torch.utils.data import DataLoader
 
 from configs.default_config import ModelConfig
-from pinn_ocean.models.swin_ocean_pinn import SwinOceanPINN
-from pinn_ocean.datasets.ocean_dataset import OceanContinuousDataset
-from pinn_ocean.utils import get_result_dirs
+from phy_ocean.models.swin_ocean_pinn import SwinOceanPINN
+from phy_ocean.datasets.ocean_dataset import OceanContinuousDataset
+from phy_ocean.utils import get_result_dirs
 
 
 def parse_args():
@@ -257,7 +257,7 @@ def predict_and_export():
             "longitude": ("longitude", longitudes, {"units": "degrees_east", "standard_name": "longitude", "axis": "X"})
         },
         attrs={
-            "title": "Pinn-Ocean 3-D Pacific Ocean Thermohaline Reconstruction",
+            "title": "Phy-Ocean 3-D Temperate Pacific Ocean Thermohaline Reconstruction",
             "institution": "Zhejiang University, School of Earth Sciences",
             "program": "2026 Zhejiang University Student Innovation Training Program (SRTP)",
             "model": "Swin-Ocean-PINN (Shifted Window Self-Attention & Continuous Depth PINN)",
@@ -337,7 +337,7 @@ def predict_and_export():
                 "longitude": ("longitude", longitudes, {"units": "degrees_east", "standard_name": "longitude", "axis": "X"})
             },
             attrs={
-                "title": "Pinn-Ocean 3-D Pacific Regular Equal-Interval Thermohaline Reconstruction",
+                "title": "Phy-Ocean 3-D Temperate Pacific Regular Equal-Interval Thermohaline Reconstruction",
                 "institution": "Zhejiang University, School of Earth Sciences",
                 "program": "2026 Zhejiang University Student Innovation Training Program (SRTP)",
                 "model": "Swin-Ocean-PINN (Continuous Depth PINN Representation)",
