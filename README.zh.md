@@ -1,12 +1,19 @@
-# Pinn-Ocean: 耦合移位窗口自注意力与物理约束连续坐标的海洋三维温盐场重建框架
+# 融合物理约束的 Swin Transformer 海洋三维温盐重建模型构建 (Pinn-Ocean)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/)
 [![PyTorch 2.0+](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
 [![GeoAI](https://img.shields.io/badge/Domain-GeoAI%20%26%20海洋人工智能-brightgreen.svg)]()
-[![曾宪梓计划](https://img.shields.io/badge/专项-曾宪梓教育基金会拔尖创新人才培育计划-orange.svg)]()
+[![大学生创新训练项目](https://img.shields.io/badge/项目-2026年浙江大学大学生创新训练项目-orange.svg)]()
 
 [English](README.md) | [中文说明文档](README.zh.md)
+
+---
+
+> **项目名称**：融合物理约束的 Swin Transformer 海洋三维温盐重建模型构建  
+> **依托项目**：2026年浙江大学大学生创新训练项目  
+> **项目负责人**：雷堤（浙江大学地球科学学院 地理信息科学专业 2024级）  
+> **指导教师**：吴森森 研究员（浙江大学地球科学学院）  
 
 ---
 
@@ -401,9 +408,10 @@ python visualize.py --data_dir data/2017_2020 --checkpoint checkpoints/swin_ocea
 }
 ```
 
+*   **项目名称**：融合物理约束的 Swin Transformer 海洋三维温盐重建模型构建
+*   **依托项目**：2026年浙江大学大学生创新训练项目
 *   **项目负责人**：雷堤（浙江大学地球科学学院 地理信息科学专业 2024级）
 *   **指导教师**：吴森森 研究员（浙江大学地球科学学院）
-*   **立项专项**：曾宪梓教育基金会第一期“拔尖创新人才培育计划”专项
 
 ---
 

@@ -1,12 +1,20 @@
-# Pinn-Ocean: Coupling Shifted Window Self-Attention with Physics-Informed Continuous Depth Representation for 3-D Ocean Thermohaline Reconstruction
+# 融合物理约束的 Swin Transformer 海洋三维温盐重建模型构建
+## Pinn-Ocean: Physics-Constrained Swin Transformer for 3-D Ocean Thermohaline Reconstruction
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/)
 [![PyTorch 2.0+](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
 [![GeoAI](https://img.shields.io/badge/Domain-GeoAI%20%26%20Oceanography-brightgreen.svg)]()
-[![Zeng Xianzi Program](https://img.shields.io/badge/Project-Zeng%20Xianzi%20Top%20Talent%20Scheme-orange.svg)]()
+[![ZJU Innovation Program](https://img.shields.io/badge/Program-2026%20ZJU%20Student%20Innovation%20Training%20Program-orange.svg)]()
 
 [English](README.md) | [中文说明文档](README.zh.md)
+
+---
+
+> **Project Title**: 融合物理约束的 Swin Transformer 海洋三维温盐重建模型构建 (Physics-Constrained Swin Transformer for Ocean 3-D Temperature and Salinity Reconstruction)  
+> **Affiliation / Program**: 2026年浙江大学大学生创新训练项目 (2026 Zhejiang University Student Innovation Training Program)  
+> **Principal Investigator**: Lei Di (Zhejiang University, School of Earth Sciences, GIS Major)  
+> **Advisor**: Dr. Sensen Wu (School of Earth Sciences, Zhejiang University)  
 
 ---
 
@@ -402,9 +410,10 @@ If you find this codebase or methodology helpful in your research, please cite:
 
 ## 8. Author & Acknowledgements
 
+*   **Project Title**: 融合物理约束的 Swin Transformer 海洋三维温盐重建模型构建 (Physics-Constrained Swin Transformer for Ocean 3-D Temperature and Salinity Reconstruction)
+*   **Support / Program**: 2026年浙江大学大学生创新训练项目 (2026 Zhejiang University Student Innovation Training Program)
 *   **Principal Investigator**: Lei Di (Zhejiang University, School of Earth Sciences, GIS Major)
 *   **Advisor**: Dr. Sensen Wu (School of Earth Sciences, Zhejiang University)
-*   **Support**: Supported by the Zeng Xianzi Education Foundation "Top Innovative Talents Cultivation Program" (曾宪梓“拔尖创新人才培育计划”专项).
 
 ---
 

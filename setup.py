@@ -6,10 +6,10 @@ setup(
     version="1.0.0",
     author="Lei Di",
     author_email="3066443513@qq.com",
-    description="Coupled PINN and Swin-Transformer Architecture for 3-D Ocean Thermohaline Reconstruction",
+    description="融合物理约束的 Swin Transformer 海洋三维温盐重建模型构建 (Physics-Constrained Swin Transformer for Ocean 3-D Thermohaline Reconstruction)",
     long_description=open("README.md", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/ldray857/Pinn-Ocean",
+    url="https://github.com/ldray857/physics-swin-ocean",
     packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
