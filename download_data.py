@@ -1,0 +1,278 @@
+# -*- coding: utf-8 -*-
+"""
+Automated Data Acquisition Script for Pinn-Ocean (Swin-Ocean-PINN)
+Fetches satellite surface observations and 3-D ocean reanalysis labels from CMEMS
+(Copernicus Marine Environment Monitoring Service).
+
+Region: Open Pacific Ocean (Default: Kuroshio Extension Deep Basin, 145°E-165°E, 30°N-40°N)
+No land, no islands, 100% valid water grid points.
+Time Span: 2013-01-01 to 2021-12-31 (108 months)
+"""
+
+import os
+import sys
+import argparse
+from datetime import datetime
+from typing import Optional, List
+
+
+# Default Open Pacific bounding box (100% deep ocean, zero land points)
+DEFAULT_MIN_LON = 145.0
+DEFAULT_MAX_LON = 165.0
+DEFAULT_MIN_LAT = 30.0
+DEFAULT_MAX_LAT = 40.0
+
+# 9-Year Time Window: 2013-01-01 to 2021-12-31
+DEFAULT_START_TIME = "2013-01-01"
+DEFAULT_END_TIME = "2021-12-31"
+
+# Depth range for subsurface thermohaline fields (meters)
+# (GLORYS surface begins at 0.494m; using 0.49 avoids boundary warnings)
+DEFAULT_MIN_DEPTH = 0.49
+DEFAULT_MAX_DEPTH = 1000.0
+
+# CMEMS Dataset Identifiers
+DATASET_IDS = {
+    # 1. Sea Level Anomaly (DUACS L4 Altimetry, 0.125 deg, Monthly)
+    "sla": {
+        "dataset_id": "cmems_obs-sl_glo_phy-ssh_my_allsat-l4-duacs-0.125deg_P1M-m",
+        "variables": ["sla"],
+        "prefix": "pacific_sla",
+        "description": "Sea Surface Height Anomaly (DUACS L4)"
+    },
+    # 2. GLORYS12V1 3-D Reanalysis (0.083 deg, Monthly, 0-1000m)
+    "glorys_3d": {
+        "dataset_id": "cmems_mod_glo_phy_my_0.083deg_P1M-m",
+        "variables": ["thetao", "so"],
+        "prefix": "pacific_glorys_3d_temp_sal",
+        "description": "3-D Potential Temperature and Practical Salinity (GLORYS12V1)"
+    },
+    # 3. Sea Surface Temperature (OSTIA / Reprocessed L4, Monthly)
+    "sst": {
+        "dataset_id": "METOFFICE-GLO-SST-L4-REP-OBS-SST",
+        "variables": ["analysed_sst"],
+        "prefix": "pacific_sst",
+        "description": "Sea Surface Temperature (OSTIA L4)"
+    },
+    # 4. Sea Surface Salinity (Multi-Observation SMOS/SMAP L4 OI, LOPS-v2025)
+    "sss": {
+        "dataset_id": "cmems_obs-mob_glo_phy-sal_my_multi-oi_P7D-c",
+        "variables": ["sss"],
+        "prefix": "pacific_sss",
+        "description": "Sea Surface Salinity (SMOS/SMAP L4 OI - LOPS-v2025)"
+    },
+    # 5. Sea Surface Wind (Blended Wind L4, Monthly)
+    "wind": {
+        "dataset_id": "cmems_obs-wind_glo_phy_my_l4_P1M",
+        "variables": ["eastward_wind", "northward_wind"],
+        "prefix": "pacific_wind",
+        "description": "Sea Surface Wind Vectors U/V (Scatterometer & Model Monthly L4)"
+    }
+}
+
+
+def resolve_output_filename(prefix: str, start_time: str, end_time: str) -> str:
+    """Generate NetCDF filename dynamically based on start and end time."""
+    sy = str(start_time)[:4]
+    ey = str(end_time)[:4]
+    if sy.isdigit() and ey.isdigit():
+        if sy == ey:
+            return f"{prefix}_{sy}.nc"
+        else:
+            return f"{prefix}_{sy}_{ey}.nc"
+    return f"{prefix}.nc"
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Download Open Pacific multi-source ocean observations & 3-D reanalysis from CMEMS."
+    )
+    parser.add_argument("--output_dir", type=str, default="data",
+                        help="Directory to save downloaded NetCDF files (default: data)")
+    parser.add_argument("--targets", nargs="+", default=["sla", "glorys_3d"],
+                        choices=["all", "sla", "glorys_3d", "sst", "sss", "wind"],
+                        help="Datasets to download. 'sla' and 'glorys_3d' are core required datasets.")
+    parser.add_argument("--min_lon", type=float, default=DEFAULT_MIN_LON,
+                        help=f"Minimum longitude in degrees east (default: {DEFAULT_MIN_LON})")
+    parser.add_argument("--max_lon", type=float, default=DEFAULT_MAX_LON,
+                        help=f"Maximum longitude in degrees east (default: {DEFAULT_MAX_LON})")
+    parser.add_argument("--min_lat", type=float, default=DEFAULT_MIN_LAT,
+                        help=f"Minimum latitude in degrees north (default: {DEFAULT_MIN_LAT})")
+    parser.add_argument("--max_lat", type=float, default=DEFAULT_MAX_LAT,
+                        help=f"Maximum latitude in degrees north (default: {DEFAULT_MAX_LAT})")
+    parser.add_argument("--start_time", type=str, default=DEFAULT_START_TIME,
+                        help=f"Start datetime YYYY-MM-DD (default: {DEFAULT_START_TIME})")
+    parser.add_argument("--end_time", type=str, default=DEFAULT_END_TIME,
+                        help=f"End datetime YYYY-MM-DD (default: {DEFAULT_END_TIME})")
+    parser.add_argument("--min_depth", type=float, default=DEFAULT_MIN_DEPTH,
+                        help=f"Minimum depth in meters for 3D products (default: {DEFAULT_MIN_DEPTH})")
+    parser.add_argument("--max_depth", type=float, default=DEFAULT_MAX_DEPTH,
+                        help=f"Maximum depth in meters for 3D products (default: {DEFAULT_MAX_DEPTH})")
+    parser.add_argument("--username", type=str, default=None,
+                        help="CMEMS account username (optional if already logged in via copernicusmarine login)")
+    parser.add_argument("--password", type=str, default=None,
+                        help="CMEMS account password")
+    parser.add_argument("--by_year", action="store_true", default=True,
+                        help="Organize downloaded data into yearly subdirectories (e.g. data/2017, data/2018) (default: True)")
+    parser.add_argument("--no_by_year", action="store_false", dest="by_year",
+                        help="Download all years directly into output_dir without yearly subdirectories")
+    parser.add_argument("--dry_run", action="store_true",
+                        help="Print download plan and parameters without making network calls.")
+    return parser.parse_args()
+
+
+def check_dependencies():
+    """Verify copernicusmarine library availability."""
+    try:
+        import copernicusmarine
+        return True, copernicusmarine
+    except ImportError:
+        return False, None
+
+
+def download_dataset(cm_module, key, meta, args, output_dir=None, start_time=None, end_time=None):
+    """Download a single dataset subset."""
+    target_dir = output_dir or args.output_dir
+    os.makedirs(target_dir, exist_ok=True)
+
+    t_start = start_time or args.start_time
+    t_end = end_time or args.end_time
+    filename = resolve_output_filename(meta["prefix"], t_start, t_end)
+    output_path = os.path.join(target_dir, filename)
+
+    print(f"\n[{key.upper()}] {meta['description']}")
+    print(f"  Dataset ID : {meta['dataset_id']}")
+    print(f"  Variables  : {meta['variables']}")
+    print(f"  Time Window: {t_start} to {t_end}")
+    print(f"  Output File: {output_path}")
+
+    if os.path.exists(output_path):
+        print(f"  [Info] File already exists at {output_path}. Skipping.")
+        return True
+
+    kwargs = {
+        "dataset_id": meta["dataset_id"],
+        "variables": meta["variables"],
+        "minimum_longitude": args.min_lon,
+        "maximum_longitude": args.max_lon,
+        "minimum_latitude": args.min_lat,
+        "maximum_latitude": args.max_lat,
+        "start_datetime": t_start,
+        "end_datetime": t_end,
+        "output_directory": target_dir,
+        "output_filename": filename,
+        "overwrite": False
+    }
+
+    # Depth constraints for 3-D products
+    if key == "glorys_3d":
+        kwargs["minimum_depth"] = args.min_depth
+        kwargs["maximum_depth"] = args.max_depth
+
+    if args.username and args.password:
+        kwargs["username"] = args.username
+        kwargs["password"] = args.password
+
+    if args.dry_run:
+        print("  [DRY RUN] Would execute copernicusmarine.subset with parameters:")
+        for k, v in kwargs.items():
+            if k not in ["password"]:
+                print(f"    - {k}: {v}")
+        return True
+
+    try:
+        print("  Starting download from Copernicus Marine Data Store...")
+        cm_module.subset(**kwargs)
+        print(f"  --> Successfully saved to {output_path}")
+        return True
+    except Exception as e:
+        print(f"  [Error] Failed to download {key}: {e}", file=sys.stderr)
+        return False
+
+
+def main():
+    args = parse_args()
+
+    print("=" * 70)
+    print("      Pinn-Ocean Open Pacific Data Collection Tool (CMEMS)       ")
+    print("=" * 70)
+    print(f" Target Region : {args.min_lon}°E - {args.max_lon}°E, {args.min_lat}°N - {args.max_lat}°N (Pure Open Ocean)")
+    print(f" Temporal Range: {args.start_time} to {args.end_time}")
+    print(f" Depth Range   : {args.min_depth}m - {args.max_depth}m (Subsurface 3-D)")
+    print(f" Base Output   : {os.path.abspath(args.output_dir)}")
+    print(f" Organization  : {'Yearly subdirectories (--by_year)' if args.by_year else 'Single folder'}")
+    print(f" Dry Run Mode  : {'ENABLED (No network request)' if args.dry_run else 'DISABLED'}")
+    print("=" * 70)
+
+    # Determine targets
+    target_keys = list(DATASET_IDS.keys()) if "all" in args.targets else args.targets
+
+    if not args.dry_run:
+        has_lib, cm_module = check_dependencies()
+        if not has_lib:
+            print("\n[Error] 'copernicusmarine' library is not installed.")
+            print("Please install it using: pip install copernicusmarine")
+            print("And optionally log in using: copernicusmarine login")
+            print("\nTo preview download parameters without connecting, run with --dry_run:")
+            print(f"  python {os.path.basename(__file__)} --dry_run")
+            sys.exit(1)
+    else:
+        cm_module = None
+
+    os.makedirs(args.output_dir, exist_ok=True)
+
+    # Check if yearly partitioning can be applied
+    start_dt, end_dt = None, None
+    if args.by_year:
+        try:
+            start_dt = datetime.strptime(args.start_time, "%Y-%m-%d")
+            end_dt = datetime.strptime(args.end_time, "%Y-%m-%d")
+        except ValueError:
+            print(f"[Warning] Could not parse start/end time as YYYY-MM-DD. Falling back to single folder mode.")
+            start_dt, end_dt = None, None
+
+    if args.by_year and start_dt and end_dt:
+        start_year = start_dt.year
+        end_year = end_dt.year
+        years = list(range(start_year, end_year + 1))
+        print(f"\n[Mode: Yearly Partitioning] Processing {len(years)} year(s): {years}")
+
+        total_tasks = len(years) * len(target_keys)
+        success_count = 0
+
+        for yr in years:
+            yr_dir = os.path.join(args.output_dir, str(yr))
+            os.makedirs(yr_dir, exist_ok=True)
+
+            yr_start = max(args.start_time, f"{yr}-01-01")
+            yr_end = min(args.end_time, f"{yr}-12-31")
+
+            print("\n" + "-" * 70)
+            print(f">>> Year {yr} | Range: {yr_start} to {yr_end} | Folder: {yr_dir}")
+            print("-" * 70)
+
+            for key in target_keys:
+                if key in DATASET_IDS:
+                    ok = download_dataset(
+                        cm_module, key, DATASET_IDS[key], args,
+                        output_dir=yr_dir, start_time=yr_start, end_time=yr_end
+                    )
+                    if ok:
+                        success_count += 1
+    else:
+        print(f"\n[Mode: Single Folder] Destination: {args.output_dir}")
+        total_tasks = len(target_keys)
+        success_count = 0
+        for key in target_keys:
+            if key in DATASET_IDS:
+                ok = download_dataset(cm_module, key, DATASET_IDS[key], args)
+                if ok:
+                    success_count += 1
+
+    print("\n" + "=" * 70)
+    print(f" Collection summary: {success_count}/{total_tasks} dataset task(s) processed successfully.")
+    print("=" * 70)
+
+
+if __name__ == "__main__":
+    main()
