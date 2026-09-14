@@ -11,13 +11,6 @@
 
 ---
 
-> **Project Title**: 融合物理约束的 Swin Transformer 海洋三维温盐重建模型构建 (Physics-Constrained Swin Transformer for Ocean 3-D Temperature and Salinity Reconstruction)  
-> **Affiliation / Program**: 2026年浙江大学大学生创新训练项目（也叫 SRTP 项目） / 2026 Zhejiang University Student Innovation Training Program (SRTP)  
-> **Student Contributors**: Primary work conducted by **Lei Di (Project Lead / 立项人)**, **Hangyu Li**, and **Xubin Huang**  
-> **Advisors**: **Prof. Zhenhong Du (Primary Advisor / 主指导教师)**, **Dr. Sensen Wu**, **Dr. Yijun Chen**  
-
----
-
 ## 1. Overview
 
 Reconstructing three-dimensional (3-D) ocean temperature and salinity (thermohaline) fields from two-dimensional (2-D) satellite surface observations is critical for climate prediction (e.g., AMOC, ENSO), ocean acoustic propagation, and maritime security. While satellite altimetry and radiometry provide high-frequency, basin-wide sea surface measurements (such as Sea Level Anomaly [SLA] and Sea Surface Temperature [SST]), direct subsurface observation networks (e.g., Argo profiling floats) remain sparse and intermittent.
